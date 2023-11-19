@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import repositorys.GiayRepository;
 import java.sql.*;
+import org.w3c.dom.Entity;
+//import utilitys.DBConnection;
 import utilitys.JDBCHelper;
 
 /**
@@ -17,28 +19,65 @@ import utilitys.JDBCHelper;
  */
 public class ChiTietSPRepository extends GiayRepository<ChiTietSP, String> {
 
-    String select_by_sql = "SELECT spct.id,spct.ma,spct.ten,NSX.Ten,MauSac.Ten,KhoiLuong.Ten,KichCo.Ten,ChatLieu.Ten,DeGiay.Ten,Dem.Ten,Anh.Ten\n"
-            + ",NhanVien.ten,spct.mota,spct.soluongton,spct.gia,spct.maqr,spct.nguoitao,spct.nguoisua,spct.ngaytao,spct.ngaysua,SanPham.Ten\n"
-            + "  FROM [dbo].[SanPhamChiTiet] spct \n"
-            + "  inner join NSX on spct.idnsx = NSX.id\n"
-            + "  inner join MauSac on spct.idmausac = MauSac.id\n"
-            + "  inner join KhoiLuong on spct.idkhoiluong = KhoiLuong.id\n"
-            + "  inner join KichCo on spct.idkichco = KichCo.id\n"
-            + "  inner join ChatLieu on spct.idchatlieu = ChatLieu.id\n"
-            + "  inner join DeGiay on spct.iddegiay = DeGiay.id\n"
-            + "  inner join Dem on spct.iddem = Dem.id\n"
-            + "  inner join Anh on spct.idanh = Anh.id\n"
-            + "  inner join NhanVien on spct.idnhanvien = NhanVien.id\n"
-            + "  inner join SanPham on spct.idsanpham  = SanPham.id";
+    String select_by_sql = "SELECT spct.id,spct.ma,spct.ten,NSX.Ten,MauSac.Ten,KhoiLuong.Ten,KichCo.Ten,ChatLieu.Ten,DeGiay.Ten,Dem.Ten\n"
+            + "            ,spct.mota,spct.soluongton,spct.gia,SanPham.Ten\n"
+            + "            FROM [dbo].[SanPhamChiTiet] spct\n"
+            + "           inner join NSX on spct.idnsx = NSX.id\n"
+            + "            inner join MauSac on spct.idmausac = MauSac.id\n"
+            + "            inner join KhoiLuong on spct.idkhoiluong = KhoiLuong.id\n"
+            + "            inner join KichCo on spct.idkichco = KichCo.id\n"
+            + "           inner join ChatLieu on spct.idchatlieu = ChatLieu.id\n"
+            + "           inner join DeGiay on spct.iddegiay = DeGiay.id\n"
+            + "            inner join Dem on spct.iddem = Dem.id         \n"
+            + "           inner join SanPham on spct.idsanpham  = SanPham.id";
+
+    String insert_sql = "INSERT INTO [dbo].[SanPhamChiTiet]\n"
+            + "           ([ma],[ten],[idnsx],[idmausac],[idkhoiluong],[idkichco],[idchatlieu]"
+            + ",            [iddegiay],[iddem],[mota],[soluongton],[gia],[idsanpham])"
+            + "     VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    String update_sql = "UPDATE [dbo].[SanPhamChiTiet]\n"
+            + "SET\n"
+            + "[ma] = ?,\n"
+            + "[ten] = ?,\n"
+            + "[idnsx] = ?,\n"
+            + "[idmausac] = ?,\n"
+            + "[idkhoiluong] = ?,\n"
+            + "[idkichco] = ?,\n"
+            + "[idchatlieu] = ?,\n"
+            + "[iddegiay] = ?,\n"
+            + "[iddem] = ?,\n"
+            + "[mota] = ?,\n"
+            + "[soluongton] = ?,\n"
+            + "[gia] = ?,\n"
+            + "[idsanpham] = ?\n"
+            + "WHERE ma = ?";
 
     @Override
     public void insert(ChiTietSP entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JDBCHelper.update(insert_sql,
+                entity.getMa(),
+                entity.getTen(),
+                entity.getIdNSX(),
+                entity.getIdMauSac(),
+                entity.getIdKhoiLuong(),
+                entity.getIdSize(),
+                entity.getIdChatLieu(),
+                entity.getIdDeGiay(),
+                entity.getIdDem(),
+                entity.getMoTa(),
+                entity.getSoLuongTon(),
+                entity.getGia(),
+                entity.getIdSanPham());
     }
 
     @Override
     public void update(ChiTietSP entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JDBCHelper.update(update_sql, entity.getMa(), entity.getTen(),
+                entity.getIdNSX(), entity.getIdMauSac(),
+                entity.getIdKhoiLuong(), entity.getIdSize(),
+                entity.getIdChatLieu(), entity.getIdDeGiay(),
+                entity.getIdDem(), entity.getMoTa(), entity.getSoLuongTon(),
+                entity.getGia(), entity.getIdSanPham(), entity.getMa());
     }
 
     @Override
@@ -47,8 +86,8 @@ public class ChiTietSPRepository extends GiayRepository<ChiTietSP, String> {
     }
 
     @Override
-    public List<ChiTietSP> getAll() {       
-        return selectBySQL(select_by_sql);       
+    public List<ChiTietSP> getAll() {
+        return selectBySQL(select_by_sql);
     }
 
     @Override
@@ -73,17 +112,10 @@ public class ChiTietSPRepository extends GiayRepository<ChiTietSP, String> {
                 ctsp.setIdChatLieu(rs.getString(8));
                 ctsp.setIdDeGiay(rs.getString(9));
                 ctsp.setIdDem(rs.getString(10));
-                ctsp.setIdAnh(rs.getString(11));
-                ctsp.setIdNhanVien(rs.getString(12));
-                ctsp.setMoTa(rs.getString(13));
-                ctsp.setSoLuongTon(rs.getInt(14));
-                ctsp.setGia(rs.getInt(15));
-                ctsp.setMaQR(rs.getString(16));
-                ctsp.setNgayTao(rs.getString(17));
-                ctsp.setNgaySua(rs.getString(18));
-                ctsp.setNguoiTao(rs.getString(19));
-                ctsp.setNguoiSua(rs.getString(20));
-                ctsp.setIdSanPham(rs.getString(21));
+                ctsp.setMoTa(rs.getString(11));
+                ctsp.setSoLuongTon(rs.getInt(12));
+                ctsp.setGia(rs.getInt(13));
+                ctsp.setIdSanPham(rs.getString(14));
 
                 chiTietSPs.add(ctsp);
 

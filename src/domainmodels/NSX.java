@@ -5,14 +5,13 @@
 package domainmodels;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  *
  * @author acer
  */
-public class NXS {
-    private UUID id;
+public class NSX {
+    private String id;
     private String ten;
     private String ma;
     private Integer trangThai;
@@ -21,10 +20,14 @@ public class NXS {
     private String nguoiTao;
     private String nguoiSua;
 
-    public NXS() {
+    public NSX() {
+    }
+    @Override
+    public String toString() {
+        return ten;
     }
 
-    public NXS(UUID id, String ten, String ma, Integer trangThai, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
+    public NSX(String id, String ten, String ma, Integer trangThai, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
         this.id = id;
         this.ten = ten;
         this.ma = ma;
@@ -35,11 +38,11 @@ public class NXS {
         this.nguoiSua = nguoiSua;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

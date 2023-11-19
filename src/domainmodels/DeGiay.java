@@ -5,14 +5,13 @@
 package domainmodels;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  *
  * @author acer
  */
 public class DeGiay {
-    private UUID id;
+    private String id;
     private String ma;
     private String ten;
     private Date ngayTao;
@@ -24,7 +23,7 @@ public class DeGiay {
     public DeGiay() {
     }
 
-    public DeGiay(UUID id, String ma, String ten, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua, Integer trangThai) {
+    public DeGiay(String id, String ma, String ten, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua, Integer trangThai) {
         this.id = id;
         this.ma = ma;
         this.ten = ten;
@@ -35,11 +34,11 @@ public class DeGiay {
         this.trangThai = trangThai;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

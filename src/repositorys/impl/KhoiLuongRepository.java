@@ -5,7 +5,6 @@
 package repositorys.impl;
 
 import domainmodels.KhoiLuong;
-import domainmodels.MauSac;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class KhoiLuongRepository extends GiayRepository<KhoiLuong, UUID> {
                 KhoiLuong kl = new KhoiLuong();
                 kl.setId(rs.getString(1));
                 kl.setMa(rs.getString(2));
-                kl.setTen(rs.getString(3));            
+                kl.setTen(rs.getString(3));
                 khoiLuongs.add(kl);
             }
         } catch (SQLException e) {

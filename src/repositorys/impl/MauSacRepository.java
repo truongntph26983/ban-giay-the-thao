@@ -6,6 +6,8 @@ package repositorys.impl;
 
 import domainmodels.MauSac;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,13 +18,15 @@ import utilitys.JDBCHelper;
  *
  * @author acer
  */
-public class MauSacRepository extends GiayRepository<MauSac, UUID>{
-    
-                String select_by_sql = "select * from MauSac";
+public class MauSacRepository extends GiayRepository<MauSac, UUID> {
+
+    String select_by_sql = "select * from MauSac";
+        String select_all_sql = "INSERT INTO NSX (Ten, Ma) VALUES (?,?)";
+
 
     @Override
     public void insert(MauSac entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         JDBCHelper.update(select_by_sql,entity.getTen(),entity.getMa());
     }
 
     @Override
@@ -37,7 +41,7 @@ public class MauSacRepository extends GiayRepository<MauSac, UUID>{
 
     @Override
     public List<MauSac> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return selectBySQL(select_by_sql); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -47,9 +51,20 @@ public class MauSacRepository extends GiayRepository<MauSac, UUID>{
 
     @Override
     public List<MauSac> selectBySQL(String sql, Object... args) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<MauSac> mauSacs = new ArrayList<>();
+        try {
+            ResultSet rs = JDBCHelper.query(sql, args);
+            while (rs.next()) {
+                MauSac ms = new MauSac();
+                ms.setId(rs.getString(1));
+                ms.setMa(rs.getString(2));
+                ms.setTen(rs.getString(3));
+                mauSacs.add(ms);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return mauSacs;
     }
-    
-  
-    
+
 }

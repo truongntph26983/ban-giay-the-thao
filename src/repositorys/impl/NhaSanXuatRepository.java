@@ -4,63 +4,66 @@
  */
 package repositorys.impl;
 
-import domainmodels.DeGiay;
-import java.util.List;
+import domainmodels.NSX;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.UUID;
 import repositorys.GiayRepository;
 import utilitys.JDBCHelper;
+import java.sql.*;
 
 /**
  *
  * @author acer
  */
-public class DeGiayRepository extends GiayRepository<DeGiay, String> {
+public class NhaSanXuatRepository extends GiayRepository<NSX, UUID> {
 
-    String select_by_sql = "select * from DeGiay";
+    String insert_sql = "INSERT INTO NSX (Ten, Ma, TrangThai) VALUES (?,?,?)";
+    String select_all_sql = "SELECT * FROM NSX";
 
     @Override
-    public void insert(DeGiay entity) {
+    public void insert(NSX entity) {
+         JDBCHelper.update(insert_sql,entity.getTen(),entity.getMa(),entity.getTrangThai());
+    }
+
+    @Override
+    public void update(NSX entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void update(DeGiay entity) {
+    public void delete(NSX entity) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void delete(DeGiay entity) {
+    public List<NSX> getAll() {
+        return selectBySQL(select_all_sql);
+    }
+
+    @Override
+    public NSX selectById(UUID id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public List<DeGiay> getAll() {
-        return selectBySQL(select_by_sql); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public DeGiay selectById(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public List<DeGiay> selectBySQL(String sql, Object... args) {
-        List<DeGiay> deGiays = new ArrayList<>();
+    public List<NSX> selectBySQL(String sql, Object... args) {
+        List<NSX> nxs1 = new ArrayList<>();
         try {
             ResultSet rs = JDBCHelper.query(sql, args);
             while (rs.next()) {
-                DeGiay dg = new DeGiay();
-//                dg.setId(rs.getString(1));
-                dg.setMa(rs.getString(3));
-                dg.setTen(rs.getString(2));
-                deGiays.add(dg);
+                NSX nsx = new NSX();
+                nsx.setId(rs.getString(1));
+                nsx.setMa(rs.getString(2));
+                nsx.setTen(rs.getString(3));
+                nxs1.add(nsx);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return deGiays;
+        return nxs1;
     }
 
 }

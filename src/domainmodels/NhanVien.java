@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author acer
  */
 public class NhanVien {
-    private UUID id;
+    private String id;
     private String ma;
     private String user;
     private String pass;
@@ -33,7 +33,7 @@ public class NhanVien {
     public NhanVien() {
     }
 
-    public NhanVien(UUID id, String ma, String user, String pass, String ten, String tenDem, String ho, Boolean gioiTinh, Date ngaySinh, String diaChi, String sdt, UUID idChucVu, Integer cccd, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
+    public NhanVien(String id, String ma, String user, String pass, String ten, String tenDem, String ho, Boolean gioiTinh, Date ngaySinh, String diaChi, String sdt, UUID idChucVu, Integer cccd, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
         this.id = id;
         this.ma = ma;
         this.user = user;
@@ -53,11 +53,11 @@ public class NhanVien {
         this.nguoiSua = nguoiSua;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

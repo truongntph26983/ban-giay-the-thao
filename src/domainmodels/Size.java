@@ -12,7 +12,7 @@ import java.util.UUID;
  * @author acer
  */
 public class Size {
-    private UUID id;
+    private String id;
     private String ten;
     private String ma;
     private Date ngayTao;
@@ -23,7 +23,7 @@ public class Size {
     public Size() {
     }
 
-    public Size(UUID id, String ten, String ma, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
+    public Size(String id, String ten, String ma, Date ngayTao, Date ngaySua, String nguoiTao, String nguoiSua) {
         this.id = id;
         this.ten = ten;
         this.ma = ma;
@@ -33,11 +33,11 @@ public class Size {
         this.nguoiSua = nguoiSua;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
