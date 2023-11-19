@@ -38,6 +38,7 @@ public class ChiTietSPPaneView extends javax.swing.JPanel {
         for (ChiTietSP chiTietSP : ctsp1) {
            tblModelCTSP.addRow(chiTietSP.todataRow());
         }
+        System.out.println("mot hai ba");
     }
 
     /**
